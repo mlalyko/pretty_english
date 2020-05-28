@@ -49,7 +49,7 @@ def keep_user_gmail(update: Update, context: CallbackContext):
 @log_error
 def make_spreadsheet(update: Update, context: CallbackContext):
     # мы получили гмаил и засунули его в переменную
-    user_gmail = update.effective_message.text
+    user_gmail = update.effective_message.text.lower()
 
     update.message.reply_text(text='I have your mail. It\'s: ' + user_gmail +
                                    '. Please, wait a second, I am creating your vocabulary.')
@@ -194,13 +194,13 @@ def message_handler(update: Update, context: CallbackContext):
                     text=my_text.upper() + ': ' + general_word.capitalize() + ', ' + ', '.join(list_of_words[0:4]),
                     reply_markup=add_in_voc_keyboard)
                 global data
-                data = [str(date.today()), word_id, my_text, general_word, ', '.join(list_of_words[0:4]), 0]
+                data = [str(date.today()), word_id, my_text, general_word.capitalize(), ', '.join(list_of_words[0:4]), 0]
 
             except KeyError:
                 update.message.reply_text(
                     text=my_text.upper() + ': ' + general_word.capitalize(),
                     reply_markup=add_in_voc_keyboard)
-                data = [str(date.today()), word_id, my_text, general_word, '', 0]
+                data = [str(date.today()), word_id, my_text, general_word.capitalize(), '', 0]
 
         else:
             update.message.reply_text(
